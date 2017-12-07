@@ -1,0 +1,140 @@
+<!document html>
+<html lang='en'>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <!-- Student DB library -->
+    <script src="w9_trudb.js"></script>
+</head>
+
+<body>
+    <div class='container'>
+        <div class='row'>
+            <div class='col-md-12'>
+                <h1 style='text-align: center'>truDB</h1>
+            </div>
+        </div>
+        <br>
+        
+        <!-- Buttons - Add, Display, Delete -->
+        
+        <div class='container'>
+            <div class='col-md-4'>
+                <button type='button' class='btn' id='add' data-toggle='modal' data-target='#modal-add' style='display:block; margin:auto'>Add</button>
+            </div>
+            <div class='col-md-4'>
+                <button type='button' class='btn' id='display' style='display:block; margin:auto'>Display</button>
+            </div>
+            <div class='col-md-4'>
+                <button type='button' class='btn' id='delete' data-toggle='modal' data-target='#modal-delete' style='display:block; margin:auto'>Delete</button>
+            </div>
+        </div>
+        <br>
+        
+        <!-- Output pane -->
+        
+        <div class='row'>
+            <div class='col-md-12'>
+                <div id='output-pane'>
+                </div>
+                <div id='output-another'>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal window for Add -->
+        
+        <div class='modal fade' id='modal-add' role='dialog'>
+            <div class='modal-dialog'>
+                <div class='modal-content'>
+                    <div class='modal-header'>
+                        <button type='button' class='close' data-dismiss='modal'>&times;</button>
+                        <h4 class='modal-title' style='text-align: center'>Add a student record</h4>
+                    </div>
+                    <div class='modal-body'>
+                        <div class='form-group'>
+                            <label for='add-name'>Name:</label>
+                            <input type='text' class='form-control' id='add-name'>
+                        </div>
+                        <div class='form-group'>
+                            <label for='add-id'>Student ID:</label>
+                            <input type='text' class='form-control' id='add-id'>
+                        </div>
+                        <div class='form-group'>
+                            <label for='add-email'>Email:</label>
+                            <input type='email' class='form-control' id='add-email'>
+                        </div>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type='button' class='btn' id='add-add' data-dismiss='modal'>Add</button>
+                        <button type='button' class='btn' data-dismiss='modal'>Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal window for Delete -->
+        
+        <div class='modal fade' id='modal-delete' role='dialog'>
+            <div class='modal-dialog'>
+                <div class='modal-content'>
+                    <div class='modal-header'>
+                        <button type='button' class='close' data-dismiss='modal'>&times;</button>
+                        <h4 class='modal-title' style='text-align: center'>Delete a student record</h4>
+                    </div>
+                    <div class='modal-body'>
+                        <div class='form-group'>
+                            <label for='delete-id'>Student ID:</label>
+                            <input type='text' class='form-control' id='delete-id' required>
+                        </div>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type='button' class='btn' id='delete-delete' data-dismiss='modal'>Delete</button>
+                        <button type='button' class='btn' data-dismiss='modal'>Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    // Creation of students DB;
+    
+    var students = new truDB();
+    
+    // Just testing to see if it is possible to access any variable defined in students.
+    
+    alert(students.db);  // What value is displayed?
+    
+    // Add a student record into the db
+    
+    $('#add-add').click(function() {  // Add button in the modal window for 'Add'
+        var name = $('#add-name').val().trim();
+        var id = $('#add-id').val().trim();
+        var email = $('#add-email').val().trim();
+        
+        students.add(id, name, email);
+    });
+    
+    // Display all the student records in the db
+    
+    $('#display').click(function() {
+        var str = students.display();  // get a string from db so that all the student records can be displayed.
+        $('#output-pane').html(str);  // str should be displayed in the element of output-pane.
+    });
+    
+    // Delete a student record from the db
+    
+    $('#delete-delete').click(function() {  // Delete button in the modal window for 'delete'
+        var id = $('#delete-id').val().trim();
+        students.remove(id);  // remove the student record of id from the db.
+    });
+</script>
+
+</html>

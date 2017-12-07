@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Positioning</title>
+    <style>
+        #ddm {
+            position:fixed;
+            top:0px;
+            left:0px;
+        }
+        #ddm li, #ddm ul {
+            list-style: none;
+            padding: 0;
+            background-color: Gray;
+            cursor:pointer;
+        }
+        #ddm ul {
+            border:1px solid black;
+        }
+        #ddm > li {
+            position: relative;
+        }
+        #ddm > li > ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+        }
+        #ddm > li > ul > li { padding: 5px; }
+        #ddm li:hover {
+            background-color: #eee;
+        }
+        #ddm > li:hover > ul {
+            display: block;
+        }
+    </style>
+    
+    <script>
+        // When the window is completely loaded,
+        window.addEventListener('load', function() {
+            // Register event handlers for menu items.
+            document.getElementById('menu-horizontal-centering').addEventListener('click', horizontal_centering);
+            document.getElementById('menu-vertical-centering').addEventListener('click', vertical_centering);
+            document.getElementById('menu-horizontal-centering-bottom').addEventListener('click', horizontal_centering_bottom);
+            document.getElementById('menu-text-centering').addEventListener('click', text_centering);
+        });
+        
+        // Event handler for 'menu-horizonal-centering'
+        function horizontal_centering(e) {
+            document.getElementById('css').style.margin = 'auto';
+        }
+        
+        // Event handler for 'menu-vertical-centering'
+        function vertical_centering(e) {
+            document.getElementById('box').style.display = 'table-cell';
+            document.getElementById('box').style.verticalAlign = 'middle';
+        }
+        
+        // Event handler for 'menu-horizonal-centering-bottom'
+        function horizontal_centering_bottom(e) {
+			
+            document.getElementById('foot').style.position = 'fixed';
+			document.getElementById('foot').style.bottom = '10px';
+			document.getElementById('foot').style.left = 'calc(50vw - 30px)';
+			
+			
+        }
+        
+        // Event handler for 'menu-text-centering'
+        function text_centering(e) {
+            document.getElementById('css').style.textAlign = 'center';
+        }
+    </script>
+</head>
+
+<body>
+    <h1 style='text-align:center'>Positioning</h1>
+    <hr>
+    <br>
+    
+    <ul id='ddm'>
+        <li style='width: 50px;'><img src='menu_icon.png' width='50px' height='50px'></img>
+            <ul style='width:200px'>
+                <li id='menu-horizontal-centering'>Horizontal centering in a box</li>
+                <li id='menu-vertical-centering'>Vertical centering in a box</li>
+                <li id='menu-horizontal-centering-bottom'>Horizontal centering at the bottom</li>
+                <li id='menu-text-centering'>Text centering</li>
+            </ul>
+        </li>
+    </ul>
+    
+    <div id='box' style='width:600px; height: 200px; border:2px solid blue; position:relative; left:calc(50vw - 300px)'>
+        <p id='css' style='width:300px; height: 150px; border:1px solid black'>
+            In CSS, selectors are patterns used to select the element(s) you want to style.
+            Use our CSS Selector Tester to demonstrate the different selectors.
+            The "CSS" column indicates in which CSS version the property is defined (CSS1, CSS2, or CSS3).
+        </p>
+    </div>
+    
+    <p id='foot' style='
+        width:60px; 
+        background-color:#bbb; 
+        text-align:center;
+    '><a href='//cs.tru.ca'>cs.tru.ca</a></p>
+    
+    <br>
+    
+    <h2>Here is what you need to do today.</h2>
+    <ol>
+        <li>When the menu 'Horizontal centering in a box' is selected,
+            you need to display the above text box at the horizontal center in the blue box .
+        </li>
+        <li>When the menu 'Vertical centering in a box' is selected,
+            you need to display the above text box at the vertical center in the blue box .
+        </li>
+        <li>When the menu 'Horizontal centering at the bottom' is selected,
+            you need to display the above link, "cs.tru.ca", at the bottom of the window and at the horizontal center.
+        </li>
+        <li>When the menu 'Text centering' is selected by clicking,
+            you need to display the above text at the center in the text box.
+        </li>
+    </ol>
+    Note: You will need to change CSS properties in the event handlers.
+</body>
+</html>
